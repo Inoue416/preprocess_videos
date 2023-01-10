@@ -1,6 +1,7 @@
 from extractLips import *
 import os
 import env
+from check_data_kind import check_kind
 
 def main():
     root = env.ROOT
@@ -9,9 +10,33 @@ def main():
         save_root = root
     err_log = env.ERR_LOG
     path_file = env.PATH_FILE
+    # You need change number of for process.
     not_use = env.NOT_USE
-    kind1 = env.KIND1
-    kind2 = env.KIND2
-    
-
+    if not_use is None:
+        not_use = []
+    for k1 in env.KIND1:
+        path = os.path.join(root, k1, env.KIND2)
+        save_path = os.path.join(save_root, k1, env.SAVE_TYPE)
+        make_folder(save_path)
+        for k3 in os.listdir(path):
+            if (k3 in not_use):
+                continue
+            target1 = os.path.join(path, k3)
+            save_path = os.path.join(save_path, k3)
+            make_folder(save_path)
+            if not check_kind(target1):
+                record_err_log(err_log, target1+' is not found.')
+                continue
+            for dk in os.listdir(target1):
+                target2 = os.path.join(target1, dk)
+                save_path2 = os.path.join(save_path, dk)
+                make_folder(save_path2)
+                if not check_kind(target2):
+                    record_err_log(err_log, target2+' is not found.')
+                    continue
+                print('Now: '+target2)
+                extract(target2, save_path2)  # extract lips
+                if not check_lips_length(target2, save_path2):  # check length of result.
+                    record_err_log(err_log, save_path2+' is not equal frame length.')
+                write_path(path_file, save_path2)
 main()
