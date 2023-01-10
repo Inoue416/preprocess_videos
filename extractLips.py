@@ -105,9 +105,7 @@ def extract(path, save_path):
 def check_lips_length(frame, lip):  # Checking each data length (frames and lips)
     frame_len = len(os.listdir(frame))
     lip_len = len(os.listdir(lip))
-    if frame_len != lip_len:
-        return False
-    return True
+    return (frame_len == lip_len)
 
 
 def record_err_log(path, message):  # Record error data
