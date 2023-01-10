@@ -111,7 +111,7 @@ def check_lips_length(frame, lip):  # Checking each data length (frames and lips
 
 def record_err_log(path, message):  # Record error data
     with open(path, 'a') as f:
-        f.wirte(message+'\n')
+        f.write(message+'\n')
 
 
 def write_path(path_file, path):
