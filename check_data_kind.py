@@ -8,11 +8,11 @@ def check_kind(path):
 
 
 if __name__ == "__main__":
-    root = env.root
-    for k1 in env.kind1:
-        path = os.path.join(root, k1, env.kind2)
+    root = env.ROOT
+    for k1 in env.KIND1:
+        path = os.path.join(root, k1, env.KIND2)
         for k3 in os.listdir(path):
-            if (k3 in env.not_target):
+            if (k3 in env.NOT_USE):
                 continue
             target1 = os.path.join(path, k3)
             if not check_kind(target1):
